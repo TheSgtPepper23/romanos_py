@@ -2,75 +2,33 @@ import sys
 
 class Romanos:
     def __init__(self):
-        self.unidades = {
-            0: "",
-            1: "I",
-            2: "II",
-            3: "III",
-            4: "IV",
-            5: "V",
-            6: "VI",
-            7: "VII",
-            8: "VIII",
-            9: "IX"
-        }
-        self.decenas = {
-            0: "",
-            1: "X",
-            2: "XX",
-            3: "XXX",
-            4: "XL",
-            5: "L",
-            6: "LX",
-            7: "LXX",
-            8: "LXXX",
-            9: "XC"
-        }
-        self.centenas = {
-            0: "",
-            1: "C",
-            2: "CC",
-            3: "CCC",
-            4: "CD",
-            5: "D",
-            6: "DC",
-            7: "DCC",
-            8: "DCCC",
-            9: "CM"
-        }
-        self.millares = {
-            0: "",
-            1: "M",
-            2: "MM",
-            3: "MMM"
-        }
+        self.unidades = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+        self.decenas = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+        self.centenas = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+        self.millares = ["", "M", "MM", "MMM"]
         
     def descomponer_numero(self, numero):
-        digitos_enteros = []
         is_numero = True
         try:
             numero = int(numero)
         except:
-            is_numero = False
+            raise
         
+        digitos_enteros = []
         if is_numero:
-            if numero < 1 or numero > 3999:
-                digitos_enteros = None
-            else:
+            if numero > 1 and numero < 3999:
                 lista_digitos = list(str(numero))
                 for digito in lista_digitos:
                     try:
                         digitos_enteros.append(int(digito))
-                    except ValueError:
-                        digitos_enteros = None
-        else:
-            digitos_enteros = None
+                    except:
+                        raise
 
         return digitos_enteros
 
     def transformar_numero(self, lista_digitos):
         numero = ""
-        if lista_digitos != None:
+        if lista_digitos:
             if len(lista_digitos) == 4:
                 numero = self.millares[lista_digitos[0]] + self.centenas[lista_digitos[1]] + \
                          self.decenas[lista_digitos[2]] + self.unidades[lista_digitos[3]]
@@ -86,11 +44,13 @@ class Romanos:
 
         return numero
 
-
 if __name__ == "__main__":
     romano = Romanos()
-    resultado = romano.transformar_numero(romano.descomponer_numero(sys.argv[1]))
-    if  resultado == None:
-        print("No se pude convertir en romano")
-    else:
-        print(resultado)
+    try:
+        resultado = romano.transformar_numero(romano.descomponer_numero(sys.argv[1]))
+        if resultado != None:
+            print(resultado)
+        else:
+            print("No puedo convertir ese número")
+    except (ValueError, TypeError):
+        print("Eso no es un número")

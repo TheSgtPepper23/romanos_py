@@ -10,10 +10,10 @@ class TestRomanos(unittest.TestCase):
         self.assertIsInstance(romano.descomponer_numero(3987), list)
         self.assertEqual(romano.descomponer_numero(25), [2, 5])
         self.assertEqual(romano.descomponer_numero(3623), [3, 6, 2, 3])
-        self.assertIsNone(romano.descomponer_numero(4000))
-        self.assertIsNone(romano.descomponer_numero(0))
-        self.assertIsNone(romano.descomponer_numero("Perro"))
-        self.assertIsNone(romano.descomponer_numero([23, 23]))
+        self.assertEqual(romano.descomponer_numero(4000), [])
+        self.assertEqual(romano.descomponer_numero(0), [])
+        self.assertRaises(ValueError, romano.descomponer_numero, "Perro")
+        self.assertRaises(TypeError, romano.descomponer_numero, [23, 23])
 
 
     def test_transformar_numero(self):
