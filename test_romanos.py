@@ -1,8 +1,8 @@
-import unittest
+from unittest import TestCase, main
 from Romanos import Romanos
 
 
-class TestRomanos(unittest.TestCase):
+class TestRomanos(TestCase):
 
     def test_descomponer_numero(self):
         romano = Romanos()
@@ -25,4 +25,4 @@ class TestRomanos(unittest.TestCase):
         self.assertIsNone(romano.transformar_numero(None))
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

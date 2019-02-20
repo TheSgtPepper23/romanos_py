@@ -8,21 +8,19 @@ class Romanos:
         self.millares = ["", "M", "MM", "MMM"]
         
     def descomponer_numero(self, numero):
-        is_numero = True
         try:
             numero = int(numero)
         except:
             raise
         
         digitos_enteros = []
-        if is_numero:
-            if numero > 1 and numero < 3999:
-                lista_digitos = list(str(numero))
-                for digito in lista_digitos:
-                    try:
-                        digitos_enteros.append(int(digito))
-                    except:
-                        raise
+        if numero > 1 and numero < 3999:
+            lista_digitos = list(str(numero))
+            for digito in lista_digitos:
+                try:
+                    digitos_enteros.append(int(digito))
+                except:
+                    raise
 
         return digitos_enteros
 
